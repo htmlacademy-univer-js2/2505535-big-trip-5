@@ -1,16 +1,22 @@
 {
-  "name": "big-trip",
-  "version": "22.0.0",
+  "name": "your-project-name",
+  "version": "1.0.0",
   "private": true,
   "description": "Проект «Большое путешествие» от HTML Academy",
   "scripts": {
-    "lint": "eslint src/"
-  },
-  "devDependencies": {
-    "eslint": "8.38.0",
-    "eslint-config-htmlacademy": "9.0.0"
+    "build": "webpack --mode production",
+    "start": "webpack serve --mode development --open"
   },
   "engines": {
     "node": "20"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.7",
+    "flatpickr": "4.6.13",
+    "he": "1.2.0",
+    "webpack-dev-server": "^5.2.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^6.0.1"
   }
 }
