@@ -1,20 +1,51 @@
-const path = require('path'); // Подключаем модуль path для работы с путями
-const { CleanWebpackPlugin } = require('clean-webpack-plugin'); // Подключаем плагин для очистки папки build
-const CopyWebpackPlugin = require('copy-webpack-plugin'); // Подключаем плагин для копирования файлов
+const path = require('path');
+const CopyPlugin = require('copy-webpack-plugin');
+const HtmlPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/main.js', // Точка входа — файл main.js
+  entry: './src/main.js', // Точка входа
   output: {
-    filename: 'bundle.js', // Название файла сборки
-    path: path.resolve(__dirname, 'build'), // Директория для сборки (абсолютный путь)
+    filename: 'bundle.[contenthash].js', // Имя бандла с хэшем
+    path: path.resolve(__dirname, 'build'), // Директория для файлов сборки
+    clean: true, // Удаляем предыдущую сборку перед созданием новой
   },
+  devtool: 'source-map', // Генерируем карту исходного кода
   plugins: [
-    new CleanWebpackPlugin(), // Очистка папки build перед новой сборкой
-    new CopyWebpackPlugin({
+    // Плагин для генерации HTML
+    new HtmlPlugin({
+      template: 'public/index.html', // Указываем шаблон HTML
+      filename: 'index.html', // Имя выходного файла
+      inject: 'body', // Вставляем скрипт перед закрывающим тегом </body>
+    }),
+    // Плагин для копирования статических файлов
+    new CopyPlugin({
       patterns: [
-        { from: 'public', to: 'build' }, // Копируем файлы из public в build
+        {
+          from: 'public', // Копируем из папки public
+          to: '', // Копируем в корень папки сборки
+          globOptions: {
+            ignore: ['**/index.html'], // Игнорируем index.html
+          },
+        },
       ],
     }),
   ],
-  devtool: 'source-map', // Активируем генерацию source maps
+  module: {
+    rules: [ // Добавляем лоадеры
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env']
+          },
+        },
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader']
+      },
+    ],
+  },
 };
