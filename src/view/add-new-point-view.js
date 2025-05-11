@@ -1,7 +1,7 @@
 
 import AbstractView from '../framework/view/abstract-view.js';
 
-function createAddNewPointTemplate() {   
+function createAddNewPointTemplate() {   //
   return (
     `<li class="trip-events__item">
       <form class="event event--edit" action="#" method="post">
