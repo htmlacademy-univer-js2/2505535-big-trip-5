@@ -13,7 +13,7 @@ const DESCCRIPTIONS = [
   'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit ad eaque cupiditate praesentium maxime.',
 ];
 const DATE_FORMATS = {
-  time: 'HH:mm',
+  time: 'HH:mm', 
   shortDate: 'MMM DD',
   formDateTime: 'DD/MM/YY HH:mm'
 };
@@ -36,5 +36,5 @@ export {
   MSEC_IN_HOUR,
   MSEC_IN_DAY,
   DURATION_FORMATS
-  
+
 };
