@@ -1,3 +1,4 @@
+
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
@@ -5,26 +6,21 @@ const HtmlPlugin = require('html-webpack-plugin');
 module.exports = {
   entry: './src/main.js', // Точка входа
   output: {
-    filename: 'bundle.[contenthash].js', // Имя бандла с хэшем
+    filename: 'bundle.[contenthash].js', // Имя бандла
     path: path.resolve(__dirname, 'build'), // Директория для файлов сборки
     clean: true, // Удаляем предыдущую сборку перед созданием новой
   },
   devtool: 'source-map', // Генерируем карту исходного кода
-  plugins: [
-    // Плагин для генерации HTML
+  plugins: [ // Подключаем плагины
     new HtmlPlugin({
-      template: 'public/index.html', // Указываем шаблон HTML
-      filename: 'index.html', // Имя выходного файла
-      inject: 'body', // Вставляем скрипт перед закрывающим тегом </body>
+      template: 'public/index.html',
     }),
-    // Плагин для копирования статических файлов
     new CopyPlugin({
       patterns: [
         {
-          from: 'public', // Копируем из папки public
-          to: '', // Копируем в корень папки сборки
+          from: 'public',
           globOptions: {
-            ignore: ['**/index.html'], // Игнорируем index.html
+            ignore: ['**/index.html'],
           },
         },
       ],
@@ -48,4 +44,6 @@ module.exports = {
       },
     ],
   },
+
 };
+
